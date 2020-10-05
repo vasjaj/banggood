@@ -1,0 +1,2 @@
+# banggood
+Banggood API
