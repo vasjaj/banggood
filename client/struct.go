@@ -55,6 +55,16 @@ type GetProductListResponse struct {
 	ProductList  []Product `json:"product_list"`
 }
 
+type Image struct {
+	Home       string `json:"home"`
+	ListGrid   string `json:"list_grid"`
+	Grid       string `json:"grid"`
+	Gallery    string `json:"gallery"`
+	View       string `json:"view"`
+	OtherItems string `json:"other_items"`
+	Large      string `json:"large"`
+}
+
 type GetProductInfoResponse struct {
 	PoaList []struct {
 		OptionID     int    `json:"option_id"`
@@ -74,15 +84,7 @@ type GetProductInfoResponse struct {
 		Warehouse      string `json:"warehouse"`
 		WarehousePrice string `json:"warehouse_price"`
 	} `json:"warehouse_list"`
-	ImageList []struct {
-		Home       string `json:"home"`
-		ListGrid   string `json:"list_grid"`
-		Grid       string `json:"grid"`
-		Gallery    string `json:"gallery"`
-		View       string `json:"view"`
-		OtherItems string `json:"other_items"`
-		Large      string `json:"large"`
-	} `json:"image_list"`
+	ImageList   []Image `json:"image_list"`
 	Description string  `json:"description"`
 	Code        int     `json:"code"`
 	Language    string  `json:"lang"`
