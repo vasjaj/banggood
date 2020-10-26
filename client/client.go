@@ -22,6 +22,7 @@ type BanggoodClient interface {
 	GetCategoryList(ctx context.Context, token string, page *int) (GetCategoryListResponse, error)
 	GetAllCategories(token string) ([]Category, error)
 	GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error)
+	GetAllProducts(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time) ([]Product, error)
 	GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error)
 	GetShipments(ctx context.Context, token, productID, warehouse, country, poaID, currency string, quantity int) (GetShipmentsResponse, error)
 	ImportOrder(ctx context.Context) (ImportOrderResponse, error)
@@ -115,7 +116,6 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(page, res.PageNumber, res.PageTotal)
 		categories = append(categories, res.CategoryList...)
 		if res.PageNumber == res.PageTotal {
 			break
@@ -136,6 +136,23 @@ func (c client) GetProductList(ctx context.Context, token, categoryID string, ad
 	}
 	var data GetProductListResponse
 	return data, json.NewDecoder(res.Body).Decode(&data)
+}
+
+func (c client) GetAllProducts(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time) ([]Product, error) {
+	var products []Product
+	page := pageFrom
+	for {
+		res, err := c.GetProductList(context.Background(), token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, &page)
+		if err != nil {
+			return nil, err
+		}
+		products = append(products, res.ProductList...)
+		if res.PageNumber == res.PageTotal {
+			break
+		}
+		page++
+	}
+	return products, nil
 }
 
 func (c client) GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error) {

@@ -36,21 +36,23 @@ type GetCategoryListResponse struct {
 	CategoryList  []Category `json:"cat_list"`
 }
 
+type Product struct {
+	ProductID       string `json:"product_id"`
+	CategoryID      string `json:"cat_id"`
+	ProductName     string `json:"product_name"`
+	Image           string `json:"img"`
+	MetaDescription string `json:"meta_desc"`
+	AddDate         string `json:"add_date"`
+	ModifyDate      string `json:"modify_date"`
+}
+
 type GetProductListResponse struct {
 	Page
 
-	Code         int    `json:"code"`
-	ProductTotal int    `json:"product_total"`
-	Language     string `json:"lang"`
-	ProductList  []struct {
-		ProductID       string `json:"product_id"`
-		CategoryID      string `json:"cat_id"`
-		ProductName     string `json:"product_name"`
-		Image           string `json:"img"`
-		MetaDescription string `json:"meta_desc"`
-		AddDate         string `json:"add_date"`
-		ModifyDate      string `json:"modify_date"`
-	} `json:"product_list"`
+	Code         int       `json:"code"`
+	ProductTotal int       `json:"product_total"`
+	Language     string    `json:"lang"`
+	ProductList  []Product `json:"product_list"`
 }
 
 type GetProductInfoResponse struct {
