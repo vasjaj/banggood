@@ -60,14 +60,14 @@ type GetProductInfoResponse struct {
 		OptionID     int    `json:"option_id"`
 		OptionName   string `json:"option_name"`
 		OptionValues []struct {
-			PoaID         string  `json:"poa_id"`
-			PoaName       string  `json:"poa_name"`
-			Poa           string  `json:"poa"`
-			PoaPrice      float32 `json:"poa_price"`
-			SmallImage    string  `json:"small_image"`
-			ViewImage     string  `json:"view_image"`
-			LargeImage    string  `json:"large_image"`
-			ListGridImage string  `json:"list_grid_image"`
+			PoaID         string `json:"poa_id"`
+			PoaName       string `json:"poa_name"`
+			Poa           string `json:"poa"`
+			PoaPrice      string `json:"poa_price"`
+			SmallImage    string `json:"small_image"`
+			ViewImage     string `json:"view_image"`
+			LargeImage    string `json:"large_image"`
+			ListGridImage string `json:"list_grid_image"`
 		} `json:"option_values"`
 	} `json:"poa_list"`
 	WarehouseList []struct {
