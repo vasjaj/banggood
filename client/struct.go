@@ -83,11 +83,11 @@ type GetProductInfoResponse struct {
 		OtherItems string `json:"other_items"`
 		Large      string `json:"large"`
 	} `json:"image_list"`
-	Description string `json:"description"`
-	Code        int    `json:"code"`
-	Language    string `json:"lang"`
-	Weight      int    `json:"weight"`
-	ProductName string `json:"product_name"`
+	Description string  `json:"description"`
+	Code        int     `json:"code"`
+	Language    string  `json:"lang"`
+	Weight      float32 `json:"weight"`
+	ProductName string  `json:"product_name"`
 }
 
 type GetShipmentsResponse struct {
