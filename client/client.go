@@ -113,13 +113,12 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 		if err != nil {
 			return nil, err
 		}
-		defer res.Body.Close()
 
 		categories = append(categories, res.CategoryList...)
 		if res.PageNumber == res.PageTotal {
 			break
 		}
-		page += 1
+		page++
 	}
 	return categories, nil
 }
