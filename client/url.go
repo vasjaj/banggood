@@ -7,6 +7,10 @@ import (
 	"golang.org/x/text/language"
 )
 
+const (
+	timeFormat = "1998-05-22 12:00:00"
+)
+
 var (
 	en = language.English.String()
 )
@@ -16,6 +20,13 @@ func optionalInt(key string, value *int) string {
 		return ""
 	}
 	return fmt.Sprintf("%s=%d&", key, *value)
+}
+
+func optionalTime(key string, value *time.Time) string {
+	if value == nil {
+		return ""
+	}
+	return fmt.Sprintf("%s=%s&", key, value.Format(timeFormat))
 }
 
 func (c client) translateURL(token, productID, poaID, warehouse, currency string) string {
@@ -35,7 +46,7 @@ func (c client) getCategoryListURL(token string, page *int) string {
 }
 
 func (c client) getProductListURL(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) string {
-	return fmt.Sprintf("%s/product/getProductList?access_token=%s&lang=%s&cat_id=%sadd_date_start=%s&add_date_end=%s&modify_date_start=%s&modify_date_end=%s&page=%s", c.BaseURL, token, en, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page)
+	return fmt.Sprintf("%s/product/getProductList?access_token=%s&lang=%s&cat_id=%s&%s%s%s%s%s", c.BaseURL, token, en, categoryID, optionalTime("add_date_start", addDateStart), optionalTime("add_date_end", addDateEnd), optionalTime("modify_date_start", modifyDateStart), optionalTime("modify_date_end", modifyDateEnd), optionalInt("page", page))
 }
 
 func (c client) getProductInfoURL(token, productID, currency string) string {

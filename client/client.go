@@ -126,6 +126,7 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 }
 
 func (c client) GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error) {
+	fmt.Println("URL: ", c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page))
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page), nil)
 	if err != nil {
 		return GetProductListResponse{}, err
