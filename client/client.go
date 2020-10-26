@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -95,7 +94,7 @@ func (c client) GetAccessToken(ctx context.Context) (GetAccessTokenResponse, err
 }
 
 func (c client) GetCategoryList(ctx context.Context, token string, page *int) (GetCategoryListResponse, error) {
-	fmt.Println("URL: ", c.getCategoryListURL(token, page))
+	// fmt.Println("URL: ", c.getCategoryListURL(token, page))
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getCategoryListURL(token, page), nil)
 	if err != nil {
 		return GetCategoryListResponse{}, err
@@ -126,7 +125,7 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 }
 
 func (c client) GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error) {
-	fmt.Println("URL: ", c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page))
+	// fmt.Println("URL: ", c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page))
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page), nil)
 	if err != nil {
 		return GetProductListResponse{}, err
@@ -147,7 +146,6 @@ func (c client) GetAllProducts(token, categoryID string, addDateStart, addDateEn
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println("Response: ", res)
 		products = append(products, res.ProductList...)
 		if res.PageNumber == res.PageTotal {
 			break
