@@ -155,7 +155,7 @@ func (c client) GetAllProducts(token, categoryID string, addDateStart, addDateEn
 	return products, nil
 }
 
-func (c client) GetProductInfo(ctx context.Context, token, productID, currency *string) (GetProductInfoResponse, error) {
+func (c client) GetProductInfo(ctx context.Context, token, productID string, currency *string) (GetProductInfoResponse, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getProductInfoURL(token, productID, currency), nil)
 	if err != nil {
 		return GetProductInfoResponse{}, err
