@@ -38,7 +38,7 @@ type GetCategoryListResponse struct {
 
 type Product struct {
 	ProductID       string `json:"product_id"`
-	CategoryID      string `json:"cat_id"`
+	CategoryID      int    `json:"cat_id"`
 	ProductName     string `json:"product_name"`
 	Image           string `json:"img"`
 	MetaDescription string `json:"meta_desc"`
