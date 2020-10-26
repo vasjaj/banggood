@@ -19,7 +19,7 @@ type BanggoodClient interface {
 	Translate(ctx context.Context, token, productID, poaID, warehouse, currency string) (TranslateResponse, error)
 	GetProductPrice(ctx context.Context, token, productID, poaID, warehouse, currency string) (GetProductPriceResponse, error)
 	GetAccessToken(ctx context.Context) (GetAccessTokenResponse, error)
-	GetCategoryList(ctx context.Context, token string, page int) (GetCategoryListResponse, error)
+	GetCategoryList(ctx context.Context, token string, page *int) (GetCategoryListResponse, error)
 	GetAllCategories(token string) ([]Category, error)
 	GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error)
 	GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error)
@@ -93,7 +93,8 @@ func (c client) GetAccessToken(ctx context.Context) (GetAccessTokenResponse, err
 	return data, json.NewDecoder(res.Body).Decode(&data)
 }
 
-func (c client) GetCategoryList(ctx context.Context, token string, page int) (GetCategoryListResponse, error) {
+func (c client) GetCategoryList(ctx context.Context, token string, page *int) (GetCategoryListResponse, error) {
+	fmt.Println("URL: ", c.getCategoryListURL(token, page))
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getCategoryListURL(token, page), nil)
 	if err != nil {
 		return GetCategoryListResponse{}, err
@@ -110,7 +111,7 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 	var categories []Category
 	page := pageFrom
 	for {
-		res, err := c.GetCategoryList(context.Background(), token, page)
+		res, err := c.GetCategoryList(context.Background(), token, &page)
 		if err != nil {
 			return nil, err
 		}

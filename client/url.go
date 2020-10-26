@@ -23,7 +23,7 @@ func (c client) getAccessTokenURL() string {
 	return fmt.Sprintf("%s/getAccessToken?app_id=%s&app_secret=%s", c.BaseURL, c.AppID, c.AppSecret)
 }
 
-func (c client) getCategoryListURL(token string, page int) string {
+func (c client) getCategoryListURL(token string, page *int) string {
 	return fmt.Sprintf("%s/category/getCategoryList?access_token=%s&lang=%s&page=%s", c.BaseURL, token, en, page)
 }
 
