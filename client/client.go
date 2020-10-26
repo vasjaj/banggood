@@ -11,6 +11,7 @@ import (
 const (
 	defaultURL     = "https://api.banggood.com"
 	defaultTestURL = "https://apibeta.banggood.com&apiTest=1&"
+	pageFrom       = 1
 )
 
 type BanggoodClient interface {
@@ -101,6 +102,22 @@ func (c client) GetCategoryList(ctx context.Context, token string, page int) (Ge
 	}
 	var data GetCategoryListResponse
 	return data, json.NewDecoder(res.Body).Decode(&data)
+}
+
+func (c client) GetAllCategories(token string) ([]Category, error) {
+	var categories []Category
+	page := pageFrom
+	for {
+		res, err := c.GetCategoryList(context.Background(), token, page)
+		if err != nil {
+			return nil, err
+		}
+		categories = append(categories, res.CategoryList)
+		if res.PageNumber == res.PageTotal {
+			break
+		}
+	}
+	return categories, nil
 }
 
 func (c client) GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error) {

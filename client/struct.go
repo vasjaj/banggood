@@ -21,17 +21,19 @@ type GetAccessTokenResponse struct {
 	ExpiresIn   int    `json:"expires_in"`
 }
 
+type Category struct {
+	CategoryID   string `json:"cat_id"`
+	CategoryName string `json:"cat_name"`
+	ParentID     string `json:"parent_id"`
+}
+
 type GetCategoryListResponse struct {
 	Page
 
-	Code          int    `json:"code"`
-	CategoryTotal int    `json:"cat_total"`
-	Language      string `json:"lang"`
-	CategoryList  []struct {
-		CategoryID   string `json:"cat_id"`
-		CategoryName string `json:"cat_name"`
-		ParentID     string `json:"parent_id"`
-	} `json:"cat_list"`
+	Code          int        `json:"code"`
+	CategoryTotal int        `json:"cat_total"`
+	Language      string     `json:"lang"`
+	CategoryList  []Category `json:"cat_list"`
 }
 
 type GetProductListResponse struct {
