@@ -86,7 +86,7 @@ type GetProductInfoResponse struct {
 	Description string `json:"description"`
 	Code        int    `json:"code"`
 	Language    string `json:"lang"`
-	Weight      string `json:"weight"`
+	Weight      int    `json:"weight"`
 	ProductName string `json:"product_name"`
 }
 

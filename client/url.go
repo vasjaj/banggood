@@ -33,7 +33,7 @@ func optionalString(key string, value *string) string {
 	if value == nil {
 		return ""
 	}
-	return fmt.Sprintf("%s=%s&", key, value)
+	return fmt.Sprintf("%s=%s&", key, *value)
 }
 
 func (c client) translateURL(token, productID, poaID, warehouse, currency string) string {
