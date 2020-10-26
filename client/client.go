@@ -18,7 +18,7 @@ type BanggoodClient interface {
 	GetProductPrice(ctx context.Context, token, productID, poaID, warehouse, currency string) (GetProductPriceResponse, error)
 	GetAccessToken(ctx context.Context) (GetAccessTokenResponse, error)
 	GetCategoryList(ctx context.Context, token string, page int) (GetCategoryListResponse, error)
-	GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd time.Time, page int) (GetProductListResponse, error)
+	GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error)
 	GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error)
 	GetShipments(ctx context.Context, token, productID, warehouse, country, poaID, currency string, quantity int) (GetShipmentsResponse, error)
 	ImportOrder(ctx context.Context) (ImportOrderResponse, error)
@@ -103,7 +103,7 @@ func (c client) GetCategoryList(ctx context.Context, token string, page int) (Ge
 	return data, json.NewDecoder(res.Body).Decode(&data)
 }
 
-func (c client) GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd time.Time, page int) (GetProductListResponse, error) {
+func (c client) GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getProductListURL(token, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page), nil)
 	if err != nil {
 		return GetProductListResponse{}, err

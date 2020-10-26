@@ -1,9 +1,9 @@
 package client
 
 type Page struct {
-	Page      int `json:"page"`
-	PageTotal int `json:"page_total"`
-	PageSize  int `json:"page_size"`
+	PageNumber int `json:"page"`
+	PageTotal  int `json:"page_total"`
+	PageSize   int `json:"page_size"`
 }
 
 type TranslateResponse struct {

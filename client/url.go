@@ -27,7 +27,7 @@ func (c client) getCategoryListURL(token string, page int) string {
 	return fmt.Sprintf("%s/category/getCategoryList?access_token=%s&lang=%s&page=%s", c.BaseURL, token, en, page)
 }
 
-func (c client) getProductListURL(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd time.Time, page int) string {
+func (c client) getProductListURL(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) string {
 	return fmt.Sprintf("%s/product/getProductList?access_token=%s&lang=%s&cat_id=%sadd_date_start=%s&add_date_end=%s&modify_date_start=%s&modify_date_end=%s&page=%s", c.BaseURL, token, en, categoryID, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd, page)
 }
 
