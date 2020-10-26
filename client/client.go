@@ -112,7 +112,7 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 		if err != nil {
 			return nil, err
 		}
-		categories = append(categories, res.CategoryList)
+		categories = append(categories, res.CategoryList...)
 		if res.PageNumber == res.PageTotal {
 			break
 		}
