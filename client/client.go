@@ -146,6 +146,7 @@ func (c client) GetAllProducts(token, categoryID string, addDateStart, addDateEn
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println("Response: ", res)
 		products = append(products, res.ProductList...)
 		if res.PageNumber == res.PageTotal {
 			break
