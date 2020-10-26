@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -164,6 +166,8 @@ func (c client) GetProductInfo(ctx context.Context, token, productID string, cur
 	if err != nil {
 		return GetProductInfoResponse{}, err
 	}
+	bytes, _ := ioutil.ReadAll(res.Body)
+	fmt.Println("Response: ", string(bytes))
 	var data GetProductInfoResponse
 	return data, json.NewDecoder(res.Body).Decode(&data)
 }
