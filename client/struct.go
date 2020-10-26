@@ -57,7 +57,7 @@ type GetProductListResponse struct {
 
 type GetProductInfoResponse struct {
 	PoaList []struct {
-		OptionID     string `json:"option_id"`
+		OptionID     int    `json:"option_id"`
 		OptionName   string `json:"option_name"`
 		OptionValues []struct {
 			PoaID         string  `json:"poa_id"`
