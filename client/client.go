@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -114,11 +113,13 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(res.PageNumber, res.PageTotal)
+		defer res.Body.Close()
+
 		categories = append(categories, res.CategoryList...)
 		if res.PageNumber == res.PageTotal {
 			break
 		}
+		page += 1
 	}
 	return categories, nil
 }
