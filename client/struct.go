@@ -37,9 +37,9 @@ type GetCategoryListResponse struct {
 type GetProductListResponse struct {
 	Page
 
-	Code         int `json:"code"`
-	ProductTotal int `json:"product_total"`
-	Language     int `json:"lang"`
+	Code         int    `json:"code"`
+	ProductTotal int    `json:"product_total"`
+	Language     string `json:"lang"`
 	ProductList  []struct {
 		ProductID       string `json:"product_id"`
 		CategoryID      string `json:"cat_id"`
