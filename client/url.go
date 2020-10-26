@@ -29,6 +29,13 @@ func optionalTime(key string, value *time.Time) string {
 	return fmt.Sprintf("%s=%s&", key, value.Format(timeFormat))
 }
 
+func optionalString(key string, value *string) string {
+	if value == nil {
+		return ""
+	}
+	return fmt.Sprintf("%s=%s&", key, value)
+}
+
 func (c client) translateURL(token, productID, poaID, warehouse, currency string) string {
 	return fmt.Sprintf("%s/product/Translate?access_token=%s&lang=%s&product_id=%s&poa_id=%s&warehouse=%s&currency=%s", c.BaseURL, token, en, productID, poaID, warehouse, currency)
 }
@@ -49,8 +56,8 @@ func (c client) getProductListURL(token, categoryID string, addDateStart, addDat
 	return fmt.Sprintf("%s/product/getProductList?access_token=%s&lang=%s&cat_id=%s&%s%s%s%s%s", c.BaseURL, token, en, categoryID, optionalTime("add_date_start", addDateStart), optionalTime("add_date_end", addDateEnd), optionalTime("modify_date_start", modifyDateStart), optionalTime("modify_date_end", modifyDateEnd), optionalInt("page", page))
 }
 
-func (c client) getProductInfoURL(token, productID, currency string) string {
-	return fmt.Sprintf("%s/product/getProductInfo?access_token=%s&lang=%s&product_id=%s&currency=%s", c.BaseURL, token, en, productID, currency)
+func (c client) getProductInfoURL(token, productID string, currency *string) string {
+	return fmt.Sprintf("%s/product/getProductInfo?access_token=%s&lang=%s&product_id=%s&%s", c.BaseURL, token, en, productID, optionalString("currency", currency))
 }
 
 func (c client) getShipmentsURL(token, productID, warehouse, country, poaID, currency string, quantity int) string {

@@ -22,7 +22,7 @@ type BanggoodClient interface {
 	GetAllCategories(token string) ([]Category, error)
 	GetProductList(ctx context.Context, token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) (GetProductListResponse, error)
 	GetAllProducts(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time) ([]Product, error)
-	GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error)
+	GetProductInfo(ctx context.Context, token, productID string, currency *string) (GetProductInfoResponse, error)
 	GetShipments(ctx context.Context, token, productID, warehouse, country, poaID, currency string, quantity int) (GetShipmentsResponse, error)
 	ImportOrder(ctx context.Context) (ImportOrderResponse, error)
 	GetOrderInfo(ctx context.Context, token, saleRecordID string) (GetOrderInfoResponse, error)
@@ -155,7 +155,7 @@ func (c client) GetAllProducts(token, categoryID string, addDateStart, addDateEn
 	return products, nil
 }
 
-func (c client) GetProductInfo(ctx context.Context, token, productID, currency string) (GetProductInfoResponse, error) {
+func (c client) GetProductInfo(ctx context.Context, token, productID, currency *string) (GetProductInfoResponse, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.getProductInfoURL(token, productID, currency), nil)
 	if err != nil {
 		return GetProductInfoResponse{}, err
