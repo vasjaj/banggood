@@ -114,7 +114,7 @@ func (c client) GetAllCategories(token string) ([]Category, error) {
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(res.PageNumber, res.PageTotal)
+		fmt.Println(page, res.PageNumber, res.PageTotal)
 		categories = append(categories, res.CategoryList...)
 		if res.PageNumber == res.PageTotal {
 			break
