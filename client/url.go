@@ -11,6 +11,13 @@ var (
 	en = language.English.String()
 )
 
+func optionalInt(key string, value *int) string {
+	if value == nil {
+		return ""
+	}
+	return fmt.Sprintf("%s=%d&", key, *value)
+}
+
 func (c client) translateURL(token, productID, poaID, warehouse, currency string) string {
 	return fmt.Sprintf("%s/product/Translate?access_token=%s&lang=%s&product_id=%s&poa_id=%s&warehouse=%s&currency=%s", c.BaseURL, token, en, productID, poaID, warehouse, currency)
 }
@@ -24,7 +31,7 @@ func (c client) getAccessTokenURL() string {
 }
 
 func (c client) getCategoryListURL(token string, page *int) string {
-	return fmt.Sprintf("%s/category/getCategoryList?access_token=%s&lang=%s&page=%s", c.BaseURL, token, en, page)
+	return fmt.Sprintf("%s/category/getCategoryList?access_token=%s&lang=%s&%s", c.BaseURL, token, en, optionalInt("page", page))
 }
 
 func (c client) getProductListURL(token, categoryID string, addDateStart, addDateEnd, modifyDateStart, modifyDateEnd *time.Time, page *int) string {
