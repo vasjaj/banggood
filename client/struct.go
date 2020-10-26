@@ -71,8 +71,8 @@ type GetProductInfoResponse struct {
 		} `json:"option_values"`
 	} `json:"poa_list"`
 	WarehouseList []struct {
-		Warehouse      string  `json:"warehouse"`
-		WarehousePrice float32 `json:"warehouse_price"`
+		Warehouse      string `json:"warehouse"`
+		WarehousePrice string `json:"warehouse_price"`
 	} `json:"warehouse_list"`
 	ImageList []struct {
 		Home       string `json:"home"`
